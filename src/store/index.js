@@ -1,18 +1,16 @@
 import { createStore } from 'vuex';
-import { loginRequest } from '@/utils/api.js';
+import axios from "axios";
+import router from "@/router";
 
 export default createStore({
   state: {
-    token: localStorage.getItem('MyAppToken') || '',
+    token: localStorage.getItem('MyAppToken'),
       API: 'https://jurapro.bhuser.ru/api-shop/',
   },
   getters: {
     isAuthenticated: (state) => !!state.token,
   },
   mutations: {
-    AUTH_SUCCESS: (state, token) => {
-      state.token = token;
-    },
     AUTH_ERROR: (state) => {
       state.token = '';
     },
@@ -24,7 +22,7 @@ export default createStore({
         await axios.post(this.state.API + 'login', user).then((response) => {
           this.state.token = response.data.data.token
           localStorage.setItem('MyAppToken', this.state.token)
-          axios.defaults.headers = {Sign_in: 'Bearer' + this.state.token}
+          axios.defaults.headers = {Authorisation: 'Bearer' + this.state.token}
           console.log(this.state.token)
           router.push('/')
         })
@@ -40,7 +38,7 @@ export default createStore({
         await axios.post(this.state.API + 'signup', user).then((response) => {
           this.state.token = response.data.data.token
           localStorage.setItem('MyAppToken', this.state.token)
-          axios.defaults.headers = {Sign_up: 'Bearer' + this.state.token}
+          axios.defaults.headers = {Authorisation: 'Bearer' + this.state.token}
           router.push('/')
         })
       } catch (e) {
@@ -50,7 +48,7 @@ export default createStore({
       }
     },
     async SIGN_OUT(){
-      this.state.token = ''
+      this.state.token = '';
     }
   },
   modules: {
