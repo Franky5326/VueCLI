@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import AUTH_REQUEST from '../store'
 export default {
   data() {
     return {
@@ -31,7 +30,7 @@ export default {
         password: this.password,
       };
       this.$store
-          .dispatch(AUTH_REQUEST, userData)
+          .dispatch('SIGN_UP', userData)
     },
   },
 };

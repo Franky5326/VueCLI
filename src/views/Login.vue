@@ -12,23 +12,21 @@
 </template>
 
 <script>
-import AUTH_REQUEST from '../store'
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: this.email,
+      password: this.password,
     };
   },
   methods:{
     login() {
         const userData = {
-          email: this.email,
-          password: this.password,
+          email: JSON.parse(JSON.stringify(this.email)),
+          password: JSON.parse(JSON.stringify(this.password)),
         };
         this.$store
-            .dispatch(AUTH_REQUEST, userData)
-            .then(() => this.$router.push("/"));
+            .dispatch('SIGN_IN', userData)
     },
   },
 };
@@ -46,8 +44,6 @@ export default {
   button {
     border: 1px solid black;
     border-radius: 5px;
-    h2 {
-      margin: 10px 0;
-    }
+    
   }
 </style>
