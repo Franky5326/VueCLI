@@ -32,7 +32,8 @@ export default {
   #header {
     display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: space-around;
+    background-color: lightsteelblue;
   }
 .style {
   position: relative;
@@ -49,4 +50,7 @@ export default {
   margin: 10px;
   color: midnightblue;
 }
+.style > a:hover {
+    color: white;
+  }
 </style>
